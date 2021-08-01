@@ -66,7 +66,7 @@ const data = {
         category: 'Pants',
         image: '/images/p6.jpg',
         price: 139,
-        countInStock: 12,
+        countInStock: 0,
         brand: 'Adidas',
         rating: 4.5,
         numReviews: 15,
