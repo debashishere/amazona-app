@@ -1,10 +1,8 @@
 import axios from "axios";
-import { PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS } from "../constants/productConstant"
+import { PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL } from "../constants/productConstant"
 
 export const listProducts = () => async(dispatch) => {
-  dispatch({
-    type: PRODUCT_LIST_REQUEST
-  });
+  dispatch({ type: PRODUCT_LIST_REQUEST});
 
   // fetch data from backend
   try{
@@ -13,5 +11,21 @@ export const listProducts = () => async(dispatch) => {
   }
   catch(err){
     dispatch({type: PRODUCT_LIST_FAIL, payload: err.message})
+  }
+}
+
+export const detailsProduct = (productId) => async(dispatch) => {
+  dispatch({ type: PRODUCT_DETAILS_REQUEST, payload: productId });
+
+  // fetch data from backend
+  try{
+    const { data } = await axios.get(`/api/products/${productId}`);
+    dispatch({ type: PRODUCT_DETAILS_SUCCESS,   payload: data});
+  }
+  catch(err){
+    dispatch({type: PRODUCT_DETAILS_FAIL,
+     payload: err.response && err.response.data.message ? err.response.data.message
+     : err.message 
+    });
   }
 }
