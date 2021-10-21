@@ -1,4 +1,5 @@
 # amazona-app
+Amazon Clone
 Create React App
 
     npm create-reat-app frontend
